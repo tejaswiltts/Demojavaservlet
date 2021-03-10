@@ -8,21 +8,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ltts.DAO.PlayerDao;
-
+import com.ltts.DAO.TeamDao;
 import com.ltts.model.player;
-
+import com.ltts.model.team;
 
 /**
- * Servlet implementation class InsertPlayerServlet
+ * Servlet implementation class InsertTeamServlet
  */
-@WebServlet("/InsertPlayerServlet")
-public class InsertPlayerServlet extends HttpServlet {
+@WebServlet("/InsertTeamServlet")
+public class InsertTeamServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+       
     /**
-     * Default constructor. 
+     * @see HttpServlet#HttpServlet()
      */
-    public InsertPlayerServlet() {
+    public InsertTeamServlet() {
+        super();
         // TODO Auto-generated constructor stub
     }
 
@@ -32,7 +33,6 @@ public class InsertPlayerServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
-		
 	}
 
 	/**
@@ -41,22 +41,17 @@ public class InsertPlayerServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
-		int PlayerId=Integer.parseInt(request.getParameter("PlayerId"));
-		String name=request.getParameter("name");
-		String dateOfBirth=request.getParameter("dateOfBirth");
-		String nationality=request.getParameter("nationality");
-		String skills=request.getParameter("skills");
-		int runs=Integer.parseInt(request.getParameter("runs"));
-		int wickets=Integer.parseInt(request.getParameter("wickets"));
-		int number_of_matches=Integer.parseInt(request.getParameter(" number_of_matches"));
 		int teamid=Integer.parseInt(request.getParameter("teamid"));
+		String teamname=request.getParameter("teamname");
+		String ownername=request.getParameter("ownername");
+		String coachname=request.getParameter("coachname");
 		
-		player p=new player(PlayerId,name,dateOfBirth,nationality,skills,runs,wickets,number_of_matches,teamid);
-		System.out.println("Inside Servlet: "+p);
-		PlayerDao pd=new PlayerDao();
+		team t=new team(teamid,teamname,ownername,coachname);
+		System.out.println("Inside Servlet: "+t);
+		TeamDao td=new TeamDao();
 		boolean b=false;
 		try {
-			b=pd.insertPlayer(p); // Control TRanfers to Dao file
+			b=td.insertTeam(t); // Control TRanfers to Dao file
 			System.out.println("Successfully Inserted...");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -64,3 +59,5 @@ public class InsertPlayerServlet extends HttpServlet {
 		}
 	}
 }
+
+
